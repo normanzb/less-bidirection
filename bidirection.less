@@ -1,0 +1,270 @@
+/* Providing basic simulation of https://drafts.csswg.org/css-logical-props/#logical-controls */
+
+.direction-normal()
+{
+    direction: ltr;
+    html@{bidirection-rtl-class} &
+    {
+        direction: rtl;
+    }
+}
+.direction-reverse()
+{
+    direction: rtl;
+    html@{bidirection-rtl-class} &
+    {
+        direction: ltr;
+    }
+}
+
+.float-start()
+{
+    float: left;
+    html@{bidirection-rtl-class} &
+    {
+        float: right;
+    }
+}
+.float-end()
+{
+    float: right;
+    html@{bidirection-rtl-class} &
+    {
+        float: left;
+    }
+}
+
+.text-align-start()
+{
+    text-align: left;
+    html@{bidirection-rtl-class} &
+    {
+        text-align: right;
+    }
+}
+
+.text-align-end()
+{
+    text-align: right;
+    html@{bidirection-rtl-class} &
+    {
+        text-align: left;
+    }
+}
+
+.text-align-center()
+{
+    text-align: center;
+    html@{bidirection-rtl-class} &
+    {
+        text-align: center;
+    }
+}
+
+.background-position(@horizontal, @vertical) when (@horizontal=0)
+{
+    background-position: 0 @vertical;
+    html@{bidirection-rtl-class} &
+    {
+        background-position: 100% @vertical;
+    }
+}
+
+.background-position(@horizontal, @vertical) when (ispercentage(@horizontal))
+{
+    background-position: @horizontal @vertical;
+    html@{bidirection-rtl-class} &
+    {
+        background-position: (100 - @horizontal) @vertical;
+    }
+}
+
+.background-position-start(@vertical)
+{
+    background-position: left @vertical;
+    html@{bidirection-rtl-class} &
+    {
+        background-position: right @vertical;
+    }
+}
+
+.background-position-end(@vertical)
+{
+    background-position: right @vertical;
+    html@{bidirection-rtl-class} &
+    {
+        background-position: left @vertical;
+    }
+}
+
+.background-position-center(@vertical)
+{
+    background-position: center @vertical;
+    html@{bidirection-rtl-class} &
+    {
+        background-position: center @vertical;
+    }
+}
+
+.padding-block(@start, @end:@start)
+{
+    padding-top: @start;
+    padding-bottom: @end;
+}
+.padding-inline(@start, @end:@start)
+{
+    padding-left: @start;
+    padding-right: @end;
+    html@{bidirection-rtl-class} & when not(@start = @end)
+    {
+        padding-left: @end;
+        padding-right: @start;
+    }
+}
+.padding-block-start(@amount) 
+{
+    padding-top: @amount;
+}
+.padding-block-end(@amount) 
+{
+    padding-bottom: @amount;
+}
+.padding-inline-start(@amount) 
+{
+    padding-left: @amount;
+    html@{bidirection-rtl-class} &
+    {
+        padding-right: @amount;
+        padding-left: 0;
+    }
+}
+.padding-inline-end(@amount) 
+{
+    padding-right: @amount;
+    html@{bidirection-rtl-class} &
+    {
+        padding-left: @amount;
+        padding-right: 0;
+    }
+}
+
+.margin-block(@start, @end:@start) 
+{
+    margin-top: @start;
+    margin-bottom: @end;
+}
+.margin-inline(@start, @end:@start) 
+{
+    margin-left: @start;
+    margin-right: @end;
+    html@{bidirection-rtl-class} & when not(@start = @end)
+    {
+        margin-left: @end;
+        margin-right: @start;
+    }
+}
+.margin-block-start(@amount) 
+{
+    margin-top: @amount;
+}
+.margin-block-end(@amount) 
+{
+    margin-bottom: @amount;
+}
+.margin-inline-start(@amount) 
+{
+    margin-left: @amount;
+    html@{bidirection-rtl-class} &
+    {
+        margin-right: @amount;
+        margin-left: auto;
+    }
+}
+.margin-inline-end(@amount) 
+{
+    margin-right: @amount;
+    html@{bidirection-rtl-class} &
+    {
+        margin-left: @amount;
+        margin-right: auto;
+    }
+}
+
+.position-block(@start, @end:@start)
+{
+    top: @start;
+    bottom: @end;
+}
+.position-inline(@start, @end:@start)
+{
+    left: @start;
+    right: @end;
+    html@{bidirection-rtl-class} & when not(@start = @end)
+    {
+        left: @end;
+        right: @start;
+    }
+}
+.position-block-start(@amount)
+{
+    top: @amount;
+}
+.position-block-end(@amount)
+{
+    bottom: @amount;
+}
+.position-inline-start(@amount)
+{
+    left: @amount;
+    html@{bidirection-rtl-class} &
+    {
+        right: @amount;
+        left: auto;
+    }
+}
+.position-inline-end(@amount)
+{
+    right: @amount;
+    html@{bidirection-rtl-class} &
+    {
+        left: @amount;
+        right: auto;
+    }
+}
+
+.border-inline(@start-width, @start-style, @start-color, @end-width, @end-style, @end-color)
+{
+    border-left: @start-width @start-style @start-color;
+    border-right: @end-width @end-style @end-color;
+    html@{bidirection-rtl-class} &
+    {
+        border-right: @start-width @start-style @start-color;
+        border-left: @end-width @end-style @end-color;
+    }
+}
+.border-inline-start(@width, @style, @color)
+{
+    border-left: @width @style @color;
+    html@{bidirection-rtl-class} &
+    {
+        border-left: none;
+        border-right: @width @style @color;
+    }
+}
+.border-inline-end(@width, @style, @color)
+{
+    border-right: @width @style @color;
+    html@{bidirection-rtl-class} &
+    {
+        border-right: none;
+        border-left: @width @style @color;
+    }
+}
+
+.bidirection-pointer
+{
+    html@{bidirection-rtl-class} &
+    {
+        transform: scaleX(-1);
+    }
+}
